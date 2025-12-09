@@ -5,30 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Test: ¿Qué tan migajer@ eres?</title>
   <style>
-    :root {
-      --bg: #0f172a;
-      --card: #111827;
-      --text: #e5e7eb;
-      --accent: #22d3ee;
-      --muted: #9ca3af;
-      --ok: #10b981;
-      --warn: #f59e0b;
-      --bad: #ef4444;
-    }
     body {
       margin: 0;
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background-color: #0f172a;
+      color: #e5e7eb;
+      font-family: system-ui, sans-serif;
       min-height: 100vh;
       display: grid;
       place-items: center;
       padding: 32px 16px;
       position: relative;
-      overflow-x: hidden;
     }
     body::before {
-      content: "🥖 🍞 🥐 🍪 🥖 🍞 🥐 🍪 🥖 🍞 🥐 🍪";
+      content: "🥖 🍞 🥐 🍪 🥖 🍞 🥐 🍪";
       font-size: 60px;
       opacity: 0.08;
       position: fixed;
@@ -43,110 +32,38 @@
     .container {
       width: 100%;
       max-width: 820px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
       border-radius: 18px;
       box-shadow: 0 20px 50px rgba(0,0,0,0.45);
       overflow: hidden;
       position: relative;
       z-index: 1;
     }
-    header {
-      padding: 28px 28px 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      background:
-        radial-gradient(1400px 380px at 10% 0%, rgba(34,211,238,0.15), transparent),
-        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-    }
-    h1 { margin: 0 0 6px; font-size: clamp(22px, 4vw, 28px); letter-spacing: 0.2px; }
-    .subtitle { color: var(--muted); font-size: 14px; }
-    main { padding: 24px 28px 28px; }
+    header { padding: 28px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    h1 { margin: 0 0 6px; font-size: 26px; }
+    .subtitle { color: #9ca3af; font-size: 14px; }
+    main { padding: 24px; }
     .input-row { display: grid; grid-template-columns: 1fr auto; gap: 12px; margin-bottom: 18px; }
-    label { font-size: 14px; color: var(--muted); margin-bottom: 8px; display: block; }
     input[type="text"] {
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 10px;
+      width: 100%; padding: 12px; border-radius: 10px;
       border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.04);
-      color: var(--text);
-      outline: none;
+      background: rgba(255,255,255,0.04); color: #e5e7eb;
     }
-    input[type="text"]::placeholder { color: #8ea0b5; }
     button {
-      appearance: none;
-      border: none;
-      padding: 12px 16px;
-      border-radius: 10px;
-      font-weight: 600;
-      color: #001319;
+      border: none; padding: 12px 16px; border-radius: 10px;
+      font-weight: 600; color: #001319;
       background: linear-gradient(180deg, #22d3ee, #06b6d4);
-      box-shadow: 0 10px 18px rgba(6,182,212,0.35);
       cursor: pointer;
-      transition: transform 0.05s ease, filter 0.2s ease;
     }
-    button:active { transform: translateY(1px) }
-    .card {
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
-      border-radius: 14px;
-      padding: 18px 16px;
-      margin-bottom: 14px;
-    }
-    .card h3 { margin: 0 0 12px; font-size: 16px; color: #cfe7ff; }
-    .question {
-      padding: 10px 12px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      margin-bottom: 10px;
-    }
-    .question p { margin: 0 0 8px; font-size: 14px; }
+    .card { border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); border-radius: 14px; padding: 18px; margin-bottom: 14px; }
+    .question { margin-bottom: 10px; }
     .options { display: grid; gap: 8px; }
-    .option {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 10px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.03);
-      border: 1px dashed rgba(255,255,255,0.12);
-    }
-    .hint { color: var(--muted); font-size: 12px; }
+    .option { display: flex; align-items: center; gap: 10px; }
     .grid { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
     @media (max-width: 720px) { .grid { grid-template-columns: 1fr } }
-    .result {
-      margin-top: 16px;
-      padding: 16px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
-      display: none;
-    }
-    .meter {
-      height: 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      overflow: hidden;
-      margin-top: 8px;
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-    .bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #10b981, #f59e0b, #ef4444);
-      transition: width 0.5s ease;
-    }
-    .badge {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      margin-top: 8px;
-      border: 1px solid rgba(255,255,255,0.14);
-    }
-    .tips { margin-top: 10px; font-size: 13px; color: var(--muted); }
-    .footer { text-align: center; color: var(--muted); font-size: 12px; padding-top: 8px; }
+    .result { margin-top: 16px; padding: 16px; border-radius: 12px; background: rgba(255,255,255,0.05); display: none; }
+    .meter { height: 14px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; margin-top: 8px; }
+    .bar { height: 100%; width: 0%; background: linear-gradient(90deg, #10b981, #f59e0b, #ef4444); transition: width 0.5s ease; }
     .firma { text-align: center; margin-top: 10px; font-size: 14px; color: #9ca3af; font-style: italic; }
     .firma a { color:#9ca3af; text-decoration:none; }
   </style>
@@ -165,7 +82,6 @@
           <input id="nombre" type="text" placeholder="Escribe tu nombre..." />
           <button id="startBtn">Empezar test</button>
         </div>
-        <p class="hint">No guardamos nada. Es por el chiste y el resultado personalizado 😉</p>
       </div>
 
       <div class="grid" id="quiz" style="display:none;">
@@ -180,8 +96,7 @@
               <label class="option"><input type="radio" name="q1" value="3"> Obvio sí</label>
             </div>
           </div>
-          <div class="question" data
-                      <div class="question" data-weight="1">
+          <div class="question" data-weight="1">
             <p>Si no te responden, ¿mandas un “?” o meme para reactivar?</p>
             <div class="options">
               <label class="option"><input type="radio" name="q2" value="0"> Me da igual</label>
@@ -230,48 +145,43 @@
             <div class="options">
               <label class="option"><input type="radio" name="q6" value="0"> No</label>
               <label class="option"><input type="radio" name="q6" value="1"> Una que otra</label>
-              <label class="option"><input type="radio" name="q6" value="2"> Sí, varias</label>
+              <label class="option"><input type="radio" name              <label class="option"><input type="radio" name="q6" value="2"> Sí, varias</label>
               <label class="option"><input type="radio" name="q6" value="3"> Tengo archivo histórico</label>
             </div>
           </div>
         </section>
+
+        <section class="card">
+          <h3>Clase 4: Redes sociales y paciencia</h3>
+          <div class="question" data-weight="1">
+            <p>¿Revisas si esa persona le da like a tus publicaciones viejas?</p>
+            <div class="options">
+              <label class="option"><input type="radio" name="q7" value="0"> No me fijo</label>
+              <label class="option"><input type="radio" name="q7" value="1"> A veces</label>
+              <label class="option"><input type="radio" name="q7" value="2"> Sí, seguido</label>
+              <label class="option"><input type="radio" name="q7" value="3"> Obsesivamente</label>
+            </div>
+          </div>
+          <div class="question" data-weight="2">
+            <p>¿Esperarías horas a que esa persona llegue aunque no confirme?</p>
+            <div class="options">
+              <label class="option"><input type="radio" name="q8" value="0"> No, jamás</label>
+              <label class="option"><input type="radio" name="q8" value="1"> Un rato nomás</label>
+              <label class="option"><input type="radio" name="q8" value="2"> Sí, bastante tiempo</label>
+              <label class="option"><input type="radio" name="q8" value="3"> Todo el día si hace falta</label>
+            </div>
+          </div>
+          <div class="question" data-weight="2">
+            <p>¿Has stalkeado sus seguidores para ver “quién es quién”?</p>
+            <div class="options">
+              <label class="option"><input type="radio" name="q9" value="0"> Nunca</label>
+              <label class="option"><input type="radio" name="q9" value="1"> Una vez</label>
+              <label class="option"><input type="radio" name="q9" value="2"> Varias veces</label>
+              <label class="option"><input type="radio" name="q9" value="3"> Soy agente secreto</label>
+            </div>
+          </div>
+        </section>
       </div>
-      <section class="card">
-  <h3>Clase 4: Redes sociales y paciencia</h3>
-
-  <!-- Pregunta cambiada -->
-  <div class="question" data-weight="1">
-    <p>¿Revisas si esa persona le da like a tus publicaciones viejas?</p>
-    <div class="options">
-      <label class="option"><input type="radio" name="q7" value="0"> No me fijo</label>
-      <label class="option"><input type="radio" name="q7" value="1"> A veces</label>
-      <label class="option"><input type="radio" name="q7" value="2"> Sí, seguido</label>
-      <label class="option"><input type="radio" name="q7" value="3"> Obsesivamente</label>
-    </div>
-  </div>
-
-  <!-- Pregunta nueva sobre esperar -->
-  <div class="question" data-weight="2">
-    <p>¿Esperarías horas a que esa persona llegue aunque no confirme?</p>
-    <div class="options">
-      <label class="option"><input type="radio" name="q8" value="0"> No, jamás</label>
-      <label class="option"><input type="radio" name="q8" value="1"> Un rato nomás</label>
-      <label class="option"><input type="radio" name="q8" value="2"> Sí, bastante tiempo</label>
-      <label class="option"><input type="radio" name="q8" value="3"> Todo el día si hace falta</label>
-    </div>
-  </div>
-
-  <!-- Pregunta original de stalkeo -->
-  <div class="question" data-weight="2">
-    <p>¿Has stalkeado sus seguidores para ver “quién es quién”?</p>
-    <div class="options">
-      <label class="option"><input type="radio" name="q9" value="0"> Nunca</label>
-      <label class="option"><input type="radio" name="q9" value="1"> Una vez</label>
-      <label class="option"><input type="radio" name="q9" value="2"> Varias veces</label>
-      <label class="option"><input type="radio" name="q9" value="3"> Soy agente secreto</label>
-    </div>
-  </div>
-</section>
 
       <div class="card" id="actions" style="display:none;">
         <button id="calcBtn">Ver mi nivel migajero</button>
@@ -283,9 +193,8 @@
         <div class="meter"><div class="bar" id="bar"></div></div>
         <span class="badge" id="badge"></span>
         <div class="tips" id="tips"></div>
-        <div class="footer">Hecho con cariño y humor. No es ciencia, es chisme bien intencionado 😌</div>
         <p class="firma">
-          <a href="https://instagram.com/chigend_10f" target="_blank">programa hecho por mi(Haz Click :D)</a>
+          <a href="https://instagram.com/tuusuario" target="_blank">programa hecho por mi</a>
         </p>
       </div>
     </main>
