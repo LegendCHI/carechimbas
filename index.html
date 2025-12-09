@@ -17,14 +17,28 @@
     }
     body {
       margin: 0;
-      background: radial-gradient(1200px 600px at 80% -20%, rgba(34,211,238,0.08), transparent),
-                  linear-gradient(180deg, #0b1023 0%, #0f172a 60%, #0b1023 100%);
+      background-color: var(--bg);
       color: var(--text);
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
       min-height: 100vh;
       display: grid;
       place-items: center;
       padding: 32px 16px;
+      position: relative;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "🥖 🍞 🥐 🍪 🥖 🍞 🥐 🍪 🥖 🍞 🥐 🍪";
+      font-size: 60px;
+      opacity: 0.08;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      white-space: pre-wrap;
+      line-height: 1.5;
+      pointer-events: none;
     }
     .container {
       width: 100%;
@@ -34,6 +48,8 @@
       border-radius: 18px;
       box-shadow: 0 20px 50px rgba(0,0,0,0.45);
       overflow: hidden;
+      position: relative;
+      z-index: 1;
     }
     header {
       padding: 28px 28px 20px;
@@ -42,30 +58,11 @@
         radial-gradient(1400px 380px at 10% 0%, rgba(34,211,238,0.15), transparent),
         linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
     }
-    h1 {
-      margin: 0 0 6px;
-      font-size: clamp(22px, 4vw, 28px);
-      letter-spacing: 0.2px;
-    }
-    .subtitle {
-      color: var(--muted);
-      font-size: 14px;
-    }
-    main {
-      padding: 24px 28px 28px;
-    }
-    .input-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-    label {
-      font-size: 14px;
-      color: var(--muted);
-      margin-bottom: 8px;
-      display: block;
-    }
+    h1 { margin: 0 0 6px; font-size: clamp(22px, 4vw, 28px); letter-spacing: 0.2px; }
+    .subtitle { color: var(--muted); font-size: 14px; }
+    main { padding: 24px 28px 28px; }
+    .input-row { display: grid; grid-template-columns: 1fr auto; gap: 12px; margin-bottom: 18px; }
+    label { font-size: 14px; color: var(--muted); margin-bottom: 8px; display: block; }
     input[type="text"] {
       width: 100%;
       padding: 12px 14px;
@@ -75,9 +72,7 @@
       color: var(--text);
       outline: none;
     }
-    input[type="text"]::placeholder {
-      color: #8ea0b5;
-    }
+    input[type="text"]::placeholder { color: #8ea0b5; }
     button {
       appearance: none;
       border: none;
@@ -98,11 +93,7 @@
       padding: 18px 16px;
       margin-bottom: 14px;
     }
-    .card h3 {
-      margin: 0 0 12px;
-      font-size: 16px;
-      color: #cfe7ff;
-    }
+    .card h3 { margin: 0 0 12px; font-size: 16px; color: #cfe7ff; }
     .question {
       padding: 10px 12px;
       border-radius: 10px;
@@ -110,14 +101,8 @@
       border: 1px solid rgba(255,255,255,0.08);
       margin-bottom: 10px;
     }
-    .question p {
-      margin: 0 0 8px;
-      font-size: 14px;
-    }
-    .options {
-      display: grid;
-      gap: 8px;
-    }
+    .question p { margin: 0 0 8px; font-size: 14px; }
+    .options { display: grid; gap: 8px; }
     .option {
       display: flex;
       align-items: center;
@@ -127,15 +112,8 @@
       background: rgba(255,255,255,0.03);
       border: 1px dashed rgba(255,255,255,0.12);
     }
-    .hint {
-      color: var(--muted);
-      font-size: 12px;
-    }
-    .grid {
-      display: grid;
-      gap: 14px;
-      grid-template-columns: 1fr 1fr;
-    }
+    .hint { color: var(--muted); font-size: 12px; }
+    .grid { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
     @media (max-width: 720px) { .grid { grid-template-columns: 1fr } }
     .result {
       margin-top: 16px;
@@ -167,17 +145,10 @@
       margin-top: 8px;
       border: 1px solid rgba(255,255,255,0.14);
     }
-    .tips {
-      margin-top: 10px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-    .footer {
-      text-align: center;
-      color: var(--muted);
-      font-size: 12px;
-      padding-top: 8px;
-    }
+    .tips { margin-top: 10px; font-size: 13px; color: var(--muted); }
+    .footer { text-align: center; color: var(--muted); font-size: 12px; padding-top: 8px; }
+    .firma { text-align: center; margin-top: 10px; font-size: 14px; color: #9ca3af; font-style: italic; }
+    .firma a { color:#9ca3af; text-decoration:none; }
   </style>
 </head>
 <body>
@@ -200,7 +171,6 @@
       <div class="grid" id="quiz" style="display:none;">
         <section class="card">
           <h3>Clase 1: Respuesta rápida</h3>
-
           <div class="question" data-weight="2">
             <p>¿Revisas si esa persona vio tus historias en menos de 5 min?</p>
             <div class="options">
@@ -210,8 +180,8 @@
               <label class="option"><input type="radio" name="q1" value="3"> Obvio sí</label>
             </div>
           </div>
-
-          <div class="question" data-weight="1">
+          <div class="question" data
+                      <div class="question" data-weight="1">
             <p>Si no te responden, ¿mandas un “?” o meme para reactivar?</p>
             <div class="options">
               <label class="option"><input type="radio" name="q2" value="0"> Me da igual</label>
@@ -224,7 +194,6 @@
 
         <section class="card">
           <h3>Clase 2: Inversión emocional</h3>
-
           <div class="question" data-weight="2">
             <p>¿Has escrito mensajes largos que luego borras porque “mejor no”?</p>
             <div class="options">
@@ -234,7 +203,6 @@
               <label class="option"><input type="radio" name="q3" value="3"> Cada semana</label>
             </div>
           </div>
-
           <div class="question" data-weight="1">
             <p>¿Te inventas planes “casuales” para cruzarte con esa persona?</p>
             <div class="options">
@@ -248,7 +216,6 @@
 
         <section class="card">
           <h3>Clase 3: Señales y migas</h3>
-
           <div class="question" data-weight="1">
             <p>Si te dan una migaja (un “jajaja”), ¿la analizas como tesis?</p>
             <div class="options">
@@ -258,7 +225,6 @@
               <label class="option"><input type="radio" name="q5" value="3"> Full modo detective</label>
             </div>
           </div>
-
           <div class="question" data-weight="2">
             <p>¿Guardas capturas de chats “por si acaso”?</p>
             <div class="options">
@@ -282,6 +248,9 @@
         <span class="badge" id="badge"></span>
         <div class="tips" id="tips"></div>
         <div class="footer">Hecho con cariño y humor. No es ciencia, es chisme bien intencionado 😌</div>
+        <p class="firma">
+          <a href="https://instagram.com/chigend_10f" target="_blank">programa hecho por mi</a>
+        </p>
       </div>
     </main>
   </div>
@@ -313,7 +282,6 @@
     });
 
     calcBtn.addEventListener('click', () => {
-      // Recolectar respuestas
       const questions = document.querySelectorAll('.question');
       let maxScore = 0;
       let score = 0;
@@ -321,7 +289,7 @@
 
       questions.forEach((q, i) => {
         const weight = Number(q.dataset.weight || 1);
-        maxScore += 3 * weight; // cada pregunta va de 0 a 3
+        maxScore += 3 * weight;
         const name = 'q' + (i + 1);
         const selected = document.querySelector(`input[name="${name}"]:checked`);
         if (!selected) {
@@ -336,10 +304,7 @@
         return;
       }
 
-      // Calcular porcentaje
       const pct = Math.round((score / maxScore) * 100);
-
-      // Determinar nivel
       let nivel = '';
       let desc = '';
       let color = '';
@@ -376,7 +341,6 @@
       result.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
-    // Autocompletar nombre con Enter
     nombreInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') startBtn.click();
     });
